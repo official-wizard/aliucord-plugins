@@ -25,7 +25,7 @@ class BetterMarkdown : Plugin() {
     private val patterns = arrayOf(
         Pair<Regex, CharacterStyle>(Regex("\\*\\*\\*(.*?)\\*\\*\\*"), StyleSpan(Typeface.BOLD_ITALIC)),
         Pair<Regex, CharacterStyle>(Regex("\\*\\*(.*?)\\*\\*"), StyleSpan(Typeface.BOLD)),
-        Pair<Regex, CharacterStyle>(Regex("\\*(.*?)\\*"), StyleSpan(Typeface.ITALIC)),
+        Pair<Regex, CharacterStyle>(Regex("\\*[^*]+\\*"), StyleSpan(Typeface.ITALIC)),
         Pair<Regex, CharacterStyle>(Regex("~~(.*?)~~"), StrikethroughSpan()),
         Pair<Regex, CharacterStyle>(Regex("__(.*?)__"), UnderlineSpan())
     )
