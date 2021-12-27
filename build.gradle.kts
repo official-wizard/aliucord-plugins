@@ -10,6 +10,8 @@ buildscript {
     dependencies {
         classpath("com.android.tools.build:gradle:7.0.2")
         classpath("com.github.Aliucord:gradle:main-SNAPSHOT")
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.30")
+
     }
 }
 
@@ -28,11 +30,12 @@ fun Project.android(configuration: BaseExtension.() -> Unit) = extensions.getByN
 subprojects {
     apply(plugin = "com.android.library")
     apply(plugin = "com.aliucord.gradle")
+    apply(plugin = "kotlin-android")
 
     aliucord {
-        author("DISCORD USERNAME", 123456789L)
-        updateUrl.set("https://raw.githubusercontent.com/USERNAME/REPONAME/builds/updater.json")
-        buildUrl.set("https://raw.githubusercontent.com/USERNAME/REPONAME/builds/%s.zip")
+        author("Link", 725923756555501658L)
+        updateUrl.set("https://raw.githubusercontent.com/lenk/aliucord-plugins/builds/updater.json")
+        buildUrl.set("https://raw.githubusercontent.com/lenk/aliucord-plugins/builds/%s.zip")
     }
 
     android {

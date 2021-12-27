@@ -1,8 +1,12 @@
 <ul align="center">
-    <h2>♥ Aliucord Plugins ♥</h2>
-    <img height="150" src="https://31.media.tumblr.com/tumblr_mdghlnkX3f1qdtfd6o1_400.gif"/>
+    <h2>♥ Better Markdown ♥</h2>
+    <img height="150" src="https://orig00.deviantart.net/d2e3/f/2007/290/6/5/master_sword_by_pixeldix.gif"/>
 
 </ul>
+
+## What is BetterMarkdown ?
+Better Markdown is a way to view discord markdown while you type as you would on PC!
+<img src="https://media.discordapp.net/attachments/843272486514589739/925007684518965278/Screenshot_20211227-074952.jpg">
 
 ## What do I need to use plugins ?
 To obtain Aliucord plugins (Plugins for Discord) make sure you have Aliucord installed!
