@@ -16,13 +16,13 @@ import com.discord.widgets.chat.list.entries.MessageEntry
 import de.robv.android.xposed.XC_MethodHook
 
 
-@AliucordPlugin
+@AliucordPlugin(requiresRestart = true)
 class GreenText : Plugin() {
     private val inputClass = "com.discord.widgets.chat.list.adapter.WidgetChatListAdapterItemMessage"
     private val listenerMethod = "processMessageText"
 
     private val highlight = Color.parseColor("#789922")
-    private val customMarkdownPattern = Regex(">[^ ][^\n]+")
+    private val customMarkdownPattern = Regex("(^>[^ ][^\n]+|\n>[^ ][^\n]+)")
 
     override fun start(context: Context) {
 
@@ -42,16 +42,13 @@ class GreenText : Plugin() {
                             }
                         }
                     } catch (e: Exception) {
-                        Utils.showToast("GreenText Fart")
                         log(e.stackTraceToString())
                     }
                 }
             })
         } catch (e: Exception) {
-            Utils.showToast("GreenText Mega Fart")
             log(e.stackTraceToString())
         }
-
     }
 
     override fun stop(context: Context) {
