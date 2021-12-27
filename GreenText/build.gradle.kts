@@ -1,2 +1,2 @@
-version = "1.0.0"
-description = "BetterMarkdown for Aliucord to view markdowns live on typed!"
+version = "1.0.1"
+description = ">(text) will be highlighted green, do note it's without a space and not the usual > (text) markdown!"
