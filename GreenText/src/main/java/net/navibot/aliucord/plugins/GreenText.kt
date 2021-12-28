@@ -22,7 +22,7 @@ class GreenText : Plugin() {
     private val listenerMethod = "processMessageText"
 
     private val highlight = Color.parseColor("#789922")
-    private val customMarkdownPattern = Regex("((^|\n)>[^ \n]+)")
+    private val customMarkdownPattern = Regex("((^|\n)>[^ ][^\n]+)")
 
     override fun start(context: Context) {
 
