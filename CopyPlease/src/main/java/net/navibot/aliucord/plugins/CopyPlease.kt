@@ -6,8 +6,11 @@ import com.aliucord.Utils.log
 import com.aliucord.annotations.AliucordPlugin
 import com.aliucord.entities.Plugin
 import com.discord.databinding.UserProfileHeaderViewBinding
+import com.discord.databinding.WidgetUserSheetBinding
 import com.discord.widgets.user.profile.UserProfileHeaderView
 import com.discord.widgets.user.profile.UserProfileHeaderViewModel
+import com.discord.widgets.user.usersheet.WidgetUserSheet
+import com.discord.widgets.user.usersheet.WidgetUserSheetViewModel
 import de.robv.android.xposed.XC_MethodHook
 
 
@@ -15,6 +18,9 @@ import de.robv.android.xposed.XC_MethodHook
 class CopyPlease : Plugin() {
     private val inputClass = "com.discord.widgets.user.profile.UserProfileHeaderView"
     private val listenerMethod = "configureSecondaryName"
+
+    private val sheetClass = "com.discord.widgets.user.usersheet.WidgetUserSheet"
+    private val sheetMethod = "configureAboutMe"
 
     override fun start(context: Context) {
 
@@ -40,9 +46,28 @@ class CopyPlease : Plugin() {
 
                 }
             })
+
+            patcher.patch(sheetClass, sheetMethod, arrayOf(WidgetUserSheetViewModel.ViewState.Loaded::class.java), object: XC_MethodHook() {
+                override fun afterHookedMethod(param: MethodHookParam) {
+                    try {
+                        val binding = WidgetUserSheet::class.java.getDeclaredMethod("getBinding").apply {
+                            isAccessible = true
+                        }.invoke(param.thisObject) as WidgetUserSheetBinding
+
+                        val view = binding.g
+                        view.setOnClickListener {
+                            Utils.setClipboard("cord-about", view.text.toString())
+                            Utils.showToast("copied description!")
+                        }
+                    } catch (e : java.lang.Exception) {
+                        e.printStackTrace()
+                    }
+                }
+            })
         } catch (e: Exception) {
-            log(e.stackTraceToString())
+            e.printStackTrace()
         }
+
     }
 
     override fun stop(context: Context) {}
