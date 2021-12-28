@@ -7,11 +7,14 @@ import com.aliucord.annotations.AliucordPlugin
 import com.aliucord.entities.Plugin
 import com.discord.databinding.UserProfileHeaderViewBinding
 import com.discord.databinding.WidgetUserSheetBinding
+import com.discord.widgets.chat.MessageContent
 import com.discord.widgets.user.profile.UserProfileHeaderView
 import com.discord.widgets.user.profile.UserProfileHeaderViewModel
 import com.discord.widgets.user.usersheet.WidgetUserSheet
 import com.discord.widgets.user.usersheet.WidgetUserSheetViewModel
 import de.robv.android.xposed.XC_MethodHook
+import java.lang.StringBuilder
+import java.util.concurrent.atomic.AtomicReference
 
 
 @AliucordPlugin(requiresRestart = true)
@@ -28,6 +31,7 @@ class CopyPlease : Plugin() {
                 override fun afterHookedMethod(param: MethodHookParam) {
 
                     try {
+
                         val view = UserProfileHeaderView::class.java.getDeclaredField("binding").apply {
                             isAccessible = true
                         }.get(param.thisObject) as UserProfileHeaderViewBinding
@@ -62,9 +66,8 @@ class CopyPlease : Plugin() {
                         }.invoke(param.thisObject) as WidgetUserSheetBinding
 
                         // copy about me
-                        val view = binding.g
-                        view.setOnClickListener {
-                            Utils.setClipboard("cord-about", view.text.toString())
+                        binding.g.setOnClickListener {
+                            Utils.setClipboard("cord-about", binding.g.text.toString())
                             Utils.showToast("copied description!")
                         }
                     } catch (e : Exception) {
