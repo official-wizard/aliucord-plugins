@@ -16,7 +16,7 @@ import com.discord.widgets.chat.input.WidgetChatInputEditText
 import com.lytefast.flexinput.widget.FlexEditText
 import de.robv.android.xposed.XC_MethodHook
 
-@AliucordPlugin()
+@AliucordPlugin(requiresRestart = true)
 class BetterMarkdown : Plugin() {
     private val inputClass = "com.discord.widgets.chat.input.WidgetChatInputEditText"
     private val listenerMethod = "setOnTextChangedListener"
@@ -24,7 +24,7 @@ class BetterMarkdown : Plugin() {
     // list of markdowns
     private val patterns = arrayOf(
         Pair<Regex, CharacterStyle>(Regex("((^|\\s)\\`[^*]+\\`)"), BackgroundColorSpan(Color.parseColor("#2F3136"))),
-        Pair<Regex, CharacterStyle>(Regex("((^|\\s)\\*[^*]+\\*)"), StyleSpan(Typeface.ITALIC)),
+        Pair<Regex, CharacterStyle>(Regex("((^|\\s)(\\*_)[^*_]+(\\*_))"), StyleSpan(Typeface.ITALIC)),
         Pair<Regex, CharacterStyle>(Regex("((^|\\s)\\*{2}[^*]+\\*{2})"), StyleSpan(Typeface.BOLD)),
         Pair<Regex, CharacterStyle>(Regex("((^|\\s)\\*{3}[^*]+\\*{3})"), StyleSpan(Typeface.BOLD_ITALIC)),
         Pair<Regex, CharacterStyle>(Regex("((^|\\s)~{2}[^~]+~{2})"), StrikethroughSpan()),
