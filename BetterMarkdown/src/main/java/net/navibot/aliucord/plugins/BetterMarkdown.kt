@@ -16,7 +16,7 @@ import com.discord.widgets.chat.input.WidgetChatInputEditText
 import com.lytefast.flexinput.widget.FlexEditText
 import de.robv.android.xposed.XC_MethodHook
 
-@AliucordPlugin(requiresRestart = true)
+@AliucordPlugin()
 class BetterMarkdown : Plugin() {
     private val inputClass = "com.discord.widgets.chat.input.WidgetChatInputEditText"
     private val listenerMethod = "setOnTextChangedListener"
