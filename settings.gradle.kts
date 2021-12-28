@@ -1,5 +1,3 @@
-// include(":MyFirstPlugin")
-
 include(":BetterMarkdown")
 project(":BetterMarkdown").projectDir = File("./BetterMarkdown")
 
