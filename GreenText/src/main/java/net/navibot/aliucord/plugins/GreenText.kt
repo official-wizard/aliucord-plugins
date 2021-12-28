@@ -16,7 +16,7 @@ import com.discord.widgets.chat.list.entries.MessageEntry
 import de.robv.android.xposed.XC_MethodHook
 
 
-@AliucordPlugin(requiresRestart = true)
+@AliucordPlugin()
 class GreenText : Plugin() {
     private val inputClass = "com.discord.widgets.chat.list.adapter.WidgetChatListAdapterItemMessage"
     private val listenerMethod = "processMessageText"
