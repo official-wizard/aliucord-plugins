@@ -5,7 +5,7 @@
 </ul>
 
 ## What is CopyPlease ?
-CopyPlease is a way to copy discord usernames or 'About Me' by tapping on them on their profile!
+CopyPlease is a way to copy 'Discord Username', 'About Me', or 'Custom Status' by tapping on them on their profile!
 
 <img src="https://media.discordapp.net/attachments/843272486514589739/925260509903728670/Screenshot_20211228-003439.jpg?width=420&height=591"/>
 

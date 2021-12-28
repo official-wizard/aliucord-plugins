@@ -23,7 +23,6 @@ class CopyPlease : Plugin() {
     private val sheetMethod = "configureAboutMe"
 
     override fun start(context: Context) {
-
         try {
             patcher.patch(inputClass, listenerMethod, arrayOf(UserProfileHeaderViewModel.ViewState.Loaded::class.java), object : XC_MethodHook() {
                 override fun afterHookedMethod(param: MethodHookParam) {
@@ -33,6 +32,7 @@ class CopyPlease : Plugin() {
                             isAccessible = true
                         }.get(param.thisObject) as UserProfileHeaderViewBinding
 
+                        // copy username
                         view.j.setOnClickListener {
                             val loaded = (param.args.first() as UserProfileHeaderViewModel.ViewState.Loaded)
                             val full =  "${loaded.user.username}#${loaded.user.discriminator}"
@@ -40,10 +40,17 @@ class CopyPlease : Plugin() {
                             Utils.setClipboard("cord-username", full)
                             Utils.showToast("copied '$full'")
                         }
-                    } catch (e : java.lang.Exception) {
-                        log(e.stackTraceToString())
-                    }
 
+                        // copy custom status
+                        view.i.setOnClickListener {
+                            val data = view.i.text.toString()
+
+                            Utils.setClipboard("cord-status", data)
+                            Utils.showToast("copied custom status!")
+                        }
+                    } catch (e : Exception) {
+                        e.printStackTrace()
+                    }
                 }
             })
 
@@ -54,12 +61,13 @@ class CopyPlease : Plugin() {
                             isAccessible = true
                         }.invoke(param.thisObject) as WidgetUserSheetBinding
 
+                        // copy about me
                         val view = binding.g
                         view.setOnClickListener {
                             Utils.setClipboard("cord-about", view.text.toString())
                             Utils.showToast("copied description!")
                         }
-                    } catch (e : java.lang.Exception) {
+                    } catch (e : Exception) {
                         e.printStackTrace()
                     }
                 }
@@ -67,7 +75,6 @@ class CopyPlease : Plugin() {
         } catch (e: Exception) {
             e.printStackTrace()
         }
-
     }
 
     override fun stop(context: Context) {}
