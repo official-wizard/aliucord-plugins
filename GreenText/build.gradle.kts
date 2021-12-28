@@ -1,2 +1,2 @@
-version = "1.0.3"
-description = ">(text) will be highlighted green, do note it's without a space and not the usual > (text) markdown!"
+version = "1.0.4"
+description = "Highlights text starting with '>' as green. does not highlight text preceded by a space."
