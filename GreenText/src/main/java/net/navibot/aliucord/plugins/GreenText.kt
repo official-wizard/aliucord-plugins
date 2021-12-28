@@ -23,7 +23,7 @@ import com.discord.widgets.chat.list.entries.MessageEntry
 import de.robv.android.xposed.XC_MethodHook
 
 
-@AliucordPlugin()
+@AliucordPlugin(requiresRestart = true)
 class GreenText : Plugin() {
     init {
         settingsTab = SettingsTab(
