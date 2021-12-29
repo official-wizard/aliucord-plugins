@@ -19,6 +19,7 @@ import com.aliucord.views.TextInput
 import com.aliucord.widgets.BottomSheet
 import com.discord.utilities.view.text.SimpleDraweeSpanTextView
 import com.discord.utilities.view.text.TextWatcher
+import com.discord.widgets.chat.MessageContent
 import com.discord.widgets.chat.list.entries.MessageEntry
 import de.robv.android.xposed.XC_MethodHook
 
@@ -36,10 +37,10 @@ class GreenText : Plugin() {
     private val listenerMethod = "processMessageText"
 
     private val highlight = Color.parseColor(settings.getString("highlightColor","#789922"))
-    private val customMarkdownPattern = Regex("((^|\n)>[^ ][^\n]+)")
+    private val customMarkdownPattern = Regex("((^|\n)>[^ ][^\n]*)")
 
     override fun start(context: Context) {
-
+        val content : MessageContent ? = null
         try {
             patcher.patch(inputClass, listenerMethod, arrayOf(SimpleDraweeSpanTextView::class.java, MessageEntry::class.java), object : XC_MethodHook() {
                 override fun afterHookedMethod(param: MethodHookParam) {
@@ -56,12 +57,12 @@ class GreenText : Plugin() {
                             }
                         }
                     } catch (e: Exception) {
-                        log(e.stackTraceToString())
+                        logger.error("'GreenText' error onHooked", e)
                     }
                 }
             })
         } catch (e: Exception) {
-            log(e.stackTraceToString())
+            logger.error("'GreenText' error tryHook", e)
         }
     }
 

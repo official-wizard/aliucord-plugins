@@ -53,7 +53,7 @@ class CopyPlease : Plugin() {
                             Utils.showToast("copied custom status!")
                         }
                     } catch (e : Exception) {
-                        e.printStackTrace()
+                        logger.error("'CopyPlease' error onHooked[1]", e)
                     }
                 }
             })
@@ -71,12 +71,12 @@ class CopyPlease : Plugin() {
                             Utils.showToast("copied description!")
                         }
                     } catch (e : Exception) {
-                        e.printStackTrace()
+                        logger.error("'CopyPlease' error onHooked[2]", e)
                     }
                 }
             })
         } catch (e: Exception) {
-            e.printStackTrace()
+            logger.error("'CopyPlease' error tryHook", e)
         }
     }
 

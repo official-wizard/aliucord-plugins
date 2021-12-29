@@ -67,12 +67,12 @@ class Obliterate : Plugin() {
                             }
                         })
                     } catch (e: Exception) {
-                        e.printStackTrace()
+                        logger.error("'Obliterate' error onHooked", e)
                     }
                 }
             })
         } catch (e: Exception) {
-            log("'Obliterate' error -> " + e.stackTraceToString())
+            logger.error("'Obliterate' error tryHook", e)
         }
     }
 
