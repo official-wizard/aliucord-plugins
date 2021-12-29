@@ -1,13 +1,12 @@
 <ul align="center">
-    <h2>♥ Copy Please ♥</h2>
+    <h2>♥ Obliterate ♥</h2>
     <img height="150" src="https://orig00.deviantart.net/d2e3/f/2007/290/6/5/master_sword_by_pixeldix.gif"/>
 
 </ul>
 
-## What is CopyPlease ?
-CopyPlease is a way to copy 'Discord Username', 'About Me', or 'Custom Status' by tapping on them on their profile!
-
-<img src="https://media.discordapp.net/attachments/843272486514589739/925260509903728670/Screenshot_20211228-003439.jpg?width=420&height=591"/>
+## What is Obliterate ?
+Obliterate is a way to remove all roles from a member at once, you must have permissions to do so!
+<img src="https://cdn.discordapp.com/attachments/843272486514589739/925697843744894996/Screenshot_20211229-052856.jpg">
 
 ## What do I need to use plugins ?
 To obtain Aliucord plugins (Plugins for Discord) make sure you have Aliucord installed!
