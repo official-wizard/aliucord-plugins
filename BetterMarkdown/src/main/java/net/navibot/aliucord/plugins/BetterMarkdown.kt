@@ -23,6 +23,7 @@ class BetterMarkdown : Plugin() {
         Pair<Regex, CharacterStyle>(Regex("((^|[^*])\\`[^*]+\\`)"), BackgroundColorSpan(Color.parseColor("#2F3136"))),
         Pair<Regex, CharacterStyle>(Regex("((^|[^*])(\\*|_)[^*_]+(\\*|_))"), StyleSpan(Typeface.ITALIC)),
         Pair<Regex, CharacterStyle>(Regex("((^|[^*])\\*{2}[^*]+\\*{2})"), StyleSpan(Typeface.BOLD)),
+        Pair<Regex, CharacterStyle>(Regex("((^|[^|])\\|{2}[^|]+\\|{2})"), BackgroundColorSpan(Color.parseColor("#1d1d20"))),
         Pair<Regex, CharacterStyle>(Regex("((^|[^*])\\*{3}[^*]+\\*{3})"), StyleSpan(Typeface.BOLD_ITALIC)),
         Pair<Regex, CharacterStyle>(Regex("((^|[^~])~{2}[^~]+~{2})"), StrikethroughSpan()),
         Pair<Regex, CharacterStyle>(Regex("((^|[^_])_{2}[^_]+_{2})"), UnderlineSpan())
@@ -56,12 +57,12 @@ class BetterMarkdown : Plugin() {
                         })
 
                     } catch (e: Exception) {
-                        log(e.stackTraceToString())
+                        logger.error("'BetterMarkdown' error onHooked", e)
                     }
                 }
             })
         } catch (e: Exception) {
-            log(e.stackTraceToString())
+            logger.error("'BetterMarkdown' error tryHook", e)
         }
 
     }
