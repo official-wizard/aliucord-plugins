@@ -1,6 +1,7 @@
 package net.navibot.aliucord.plugins
 
 import android.content.Context
+import androidx.core.content.ContextCompat
 import com.aliucord.Utils
 import com.aliucord.Utils.log
 import com.aliucord.annotations.AliucordPlugin
@@ -11,7 +12,9 @@ import com.discord.utilities.rest.RestAPI.getApi
 import com.discord.utilities.rx.ObservableExtensionsKt
 import com.discord.widgets.servers.WidgetServerSettingsEditMember
 import de.robv.android.xposed.XC_MethodHook
+import com.lytefast.flexinput.R
 
+// Favoritism
 @AliucordPlugin(requiresRestart = true)
 class Obliterate : Plugin() {
     private val path = "com.discord.widgets.servers.WidgetServerSettingsEditMember"
@@ -41,7 +44,7 @@ class Obliterate : Plugin() {
                             .map { item -> item.key.toLong() }
 
                         // bind view if not already
-                        binding.b.addViewIfNotTagged(MenuUtils.createButton(binding.b.context, "Remove Roles", MenuUtils.getTintedDrawable(context, android.R.drawable.ic_notification_clear_all), "remove_roles").apply {
+                        binding.b.addViewIfNotTagged(MenuUtils.createButton(binding.b.context, "Clear Roles", ContextCompat.getDrawable(binding.b.context, R.e.ic_x_red_24dp), "remove_roles").apply {
                             setOnClickListener { // remove all roles
                                 try {
                                     ObservableExtensionsKt.appSubscribe(
@@ -69,7 +72,7 @@ class Obliterate : Plugin() {
                 }
             })
         } catch (e: Exception) {
-            log(e.stackTraceToString())
+            log("'Obliterate' error -> " + e.stackTraceToString())
         }
     }
 
