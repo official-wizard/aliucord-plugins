@@ -46,7 +46,6 @@ class LetThereBeColors : Plugin() {
                     val decode = net.navibot.aliucord.plugins.Utils.decode(entry.message.content)
                     textView.setTextColor(Color.parseColor("#$decode"))
                 } catch (num: ParseException) {
-                    num.printStackTrace()
                     // ignored, most likely just doesn't have a color set
                 }
             }
