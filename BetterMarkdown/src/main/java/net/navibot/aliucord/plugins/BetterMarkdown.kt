@@ -6,6 +6,7 @@ import android.graphics.Typeface
 import android.text.Editable
 import android.text.Spanned
 import android.text.style.*
+import android.util.Patterns
 import com.aliucord.Utils.log
 import com.aliucord.annotations.AliucordPlugin
 import com.aliucord.entities.Plugin
@@ -26,7 +27,8 @@ class BetterMarkdown : Plugin() {
         Pair<Regex, CharacterStyle>(Regex("((^|[^|])\\|{2}[^|]+\\|{2})"), BackgroundColorSpan(Color.parseColor("#1d1d20"))),
         Pair<Regex, CharacterStyle>(Regex("((^|[^*])\\*{3}[^*]+\\*{3})"), StyleSpan(Typeface.BOLD_ITALIC)),
         Pair<Regex, CharacterStyle>(Regex("((^|[^~])~{2}[^~]+~{2})"), StrikethroughSpan()),
-        Pair<Regex, CharacterStyle>(Regex("((^|[^_])_{2}[^_]+_{2})"), UnderlineSpan())
+        Pair<Regex, CharacterStyle>(Regex("((^|[^_])_{2}[^_]+_{2})"), UnderlineSpan()),
+        Pair<Regex, CharacterStyle>(Patterns.WEB_URL.toRegex(), ForegroundColorSpan(Color.parseColor("#139FD9")))
     )
 
     override fun start(context: Context) {
