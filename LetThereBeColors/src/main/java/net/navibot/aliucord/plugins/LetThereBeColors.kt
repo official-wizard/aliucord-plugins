@@ -4,6 +4,7 @@ import android.content.Context
 import android.graphics.Color
 import android.os.Bundle
 import android.text.Editable
+import android.text.style.ForegroundColorSpan
 import android.view.View
 import com.aliucord.Utils
 import com.aliucord.annotations.AliucordPlugin
@@ -21,6 +22,12 @@ import com.discord.widgets.chat.input.ChatInputViewModel
 import com.discord.widgets.chat.list.adapter.WidgetChatListAdapterItemMessage
 import com.discord.widgets.chat.list.entries.MessageEntry
 import net.navibot.aliucord.plugins.error.ParseException
+import android.text.Spannable
+
+import android.text.SpannableString
+
+
+
 
 @AliucordPlugin(requiresRestart = true)
 class LetThereBeColors : Plugin() {
@@ -35,10 +42,12 @@ class LetThereBeColors : Plugin() {
 
         try {
             patcher.after<WidgetChatListAdapterItemMessage>("processMessageText", SimpleDraweeSpanTextView::class.java, MessageEntry::class.java) {
-                val textView = it.args[0] as SimpleDraweeSpanTextView
-                val entry = it.args[1] as MessageEntry
+                val textView = (it.args[0] as SimpleDraweeSpanTextView).apply {
+                    setTextColor(-2302498)
+                }
 
-                if (entry.message.isLoading) {
+                val entry = it.args[1] as MessageEntry
+                if (entry.message.isLoading || entry.message.content.matches(Regex("(:[a-zA-Z0-9_]+:(| ))+"))) {
                     return@after
                 }
 
@@ -62,13 +71,17 @@ class LetThereBeColors : Plugin() {
 
                     if (!color.isNullOrEmpty()) {
                         val content = it.args[2] as MessageContent
-                        content.set(
-                            net.navibot.aliucord.plugins.Utils.encode(
-                                color.replace("#", "")
-                            ) + content.textContent
-                        )
 
-                        it.args[2]
+                        // ignore big emojis
+                        if (!content.textContent.matches(Regex("(((:[a-zA-Z0-9_]+:)|<(|[a-zA-Z0-9]+):[a-zA-Z0-9_]+:[0-9]+>)(| ))+"))) {
+                            content.set(
+                                net.navibot.aliucord.plugins.Utils.encode(
+                                    color.replace("#", "")
+                                ) + content.textContent
+                            )
+
+                            it.args[2]
+                        }
                     }
                 } catch (e: Exception) {
                     logger.error(e)

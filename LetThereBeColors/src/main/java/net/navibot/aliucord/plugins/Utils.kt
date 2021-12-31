@@ -28,7 +28,7 @@ class Utils {
         }
 
         fun decode(data: String): String {
-            if (!data.matches(Regex("^\u200D(.*)\u200D(.*)$"))) {
+            if (!data.matches(Regex("^\u200D[\u200C\u200B]+\u200D.*$"))) {
                 throw ParseException("No valid encoded HEX found!")
             }
 
@@ -37,11 +37,13 @@ class Utils {
                 throw ParseException("No valid encoded HEX found!")
             }
 
-            val result = chunk.split("\u200C").filter { e1 -> e1.isNotEmpty() }.map { e1 ->
-                map.entries.first { e2 -> e2.value.length == e1.length }.key
-            }.toCharArray()
-
-            return String(result)
+            return try {
+                String(chunk.split("\u200C").filter { e1 -> e1.isNotEmpty() }.map { e1 ->
+                    map.entries.first { e2 -> e2.value.length == e1.length }.key
+                }.toCharArray())
+            } catch (n : NoSuchElementException) {
+                throw ParseException("No valid encoded HEX found!")
+            }
 
         }
     }
