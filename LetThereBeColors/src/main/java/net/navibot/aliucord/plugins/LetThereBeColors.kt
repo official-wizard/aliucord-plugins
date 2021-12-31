@@ -4,7 +4,6 @@ import android.content.Context
 import android.graphics.Color
 import android.os.Bundle
 import android.text.Editable
-import android.text.style.ForegroundColorSpan
 import android.view.View
 import com.aliucord.Utils
 import com.aliucord.annotations.AliucordPlugin
@@ -22,11 +21,6 @@ import com.discord.widgets.chat.input.ChatInputViewModel
 import com.discord.widgets.chat.list.adapter.WidgetChatListAdapterItemMessage
 import com.discord.widgets.chat.list.entries.MessageEntry
 import net.navibot.aliucord.plugins.error.ParseException
-import android.text.Spannable
-
-import android.text.SpannableString
-
-
 
 
 @AliucordPlugin(requiresRestart = true)
@@ -75,9 +69,9 @@ class LetThereBeColors : Plugin() {
                         // ignore big emojis
                         if (!content.textContent.matches(Regex("(((:[a-zA-Z0-9_]+:)|<(|[a-zA-Z0-9]+):[a-zA-Z0-9_]+:[0-9]+>)(| ))+"))) {
                             content.set(
-                                net.navibot.aliucord.plugins.Utils.encode(
+                                content.textContent + net.navibot.aliucord.plugins.Utils.encode(
                                     color.replace("#", "")
-                                ) + content.textContent
+                                )
                             )
 
                             it.args[2]
