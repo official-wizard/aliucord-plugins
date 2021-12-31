@@ -21,14 +21,15 @@ class BetterMarkdown : Plugin() {
 
     // list of markdowns
     private val styles = arrayOf(
-        Pair<Regex, CharacterStyle>(Regex("((^|[^*])\\`[^*]+\\`)"), BackgroundColorSpan(Color.parseColor("#2F3136"))),
-        Pair<Regex, CharacterStyle>(Regex("((^|[^*])(\\*|_)[^*_]+(\\*|_))"), StyleSpan(Typeface.ITALIC)),
-        Pair<Regex, CharacterStyle>(Regex("((^|[^*])\\*{2}[^*]+\\*{2})"), StyleSpan(Typeface.BOLD)),
-        Pair<Regex, CharacterStyle>(Regex("((^|[^|])\\|{2}[^|]+\\|{2})"), BackgroundColorSpan(Color.parseColor("#1d1d20"))),
-        Pair<Regex, CharacterStyle>(Regex("((^|[^*])\\*{3}[^*]+\\*{3})"), StyleSpan(Typeface.BOLD_ITALIC)),
-        Pair<Regex, CharacterStyle>(Regex("((^|[^~])~{2}[^~]+~{2})"), StrikethroughSpan()),
-        Pair<Regex, CharacterStyle>(Regex("((^|[^_])_{2}[^_]+_{2})"), UnderlineSpan()),
-        Pair<Regex, CharacterStyle>(Patterns.WEB_URL.toRegex(), ForegroundColorSpan(Color.parseColor("#139FD9")))
+        Pair<Regex, CharacterStyle>(Regex("(^|[^*])(\\`[^*]+\\`)"), BackgroundColorSpan(Color.argb(200, 47, 49, 54))),
+        Pair<Regex, CharacterStyle>(Regex("(^|[^*])(\\*[^*]+\\*)"), StyleSpan(Typeface.ITALIC)),
+        Pair<Regex, CharacterStyle>(Regex("(^|[^*])(\\_[^_]+\\_)"), StyleSpan(Typeface.ITALIC)),
+        Pair<Regex, CharacterStyle>(Regex("(^|[^*])(\\*{2}[^*]+\\*{2})"), StyleSpan(Typeface.BOLD)),
+        Pair<Regex, CharacterStyle>(Regex("(^|[^|])(\\|{2}[^|]+\\|{2})"), BackgroundColorSpan(Color.argb(200, 47, 49, 54))),
+        Pair<Regex, CharacterStyle>(Regex("(^|[^*])(\\*{3}[^*]+\\*{3})"), StyleSpan(Typeface.BOLD_ITALIC)),
+        Pair<Regex, CharacterStyle>(Regex("(^|[^~])(~{2}[^~]+~{2})"), StrikethroughSpan()),
+        Pair<Regex, CharacterStyle>(Regex("(^|[^_])(_{2}[^_]+_{2})"), UnderlineSpan()),
+        Pair<Regex, CharacterStyle>(Regex("((https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()@:%_\\+.~#?&//=]*)))"), ForegroundColorSpan(Color.parseColor("#139FD9")))
     )
 
     override fun start(context: Context) {
@@ -52,7 +53,7 @@ class BetterMarkdown : Plugin() {
                                 // Apply any found patterns
                                 styles.forEach { pattern ->
                                     pattern.first.findAll(data, 0).forEach { match ->
-                                        setSpan(s, pattern.second, data, match.groupValues.first().trim())
+                                        setSpan(s, pattern.second, data, match.groupValues[2].trim())
                                     }
                                 }
                             }
