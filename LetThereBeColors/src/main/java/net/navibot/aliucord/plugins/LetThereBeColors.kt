@@ -48,10 +48,13 @@ class LetThereBeColors : Plugin() {
                 try {
                     val decode = ColorUtils.decode(entry.message.content)
                     textView.setTextColor(Color.parseColor("#$decode"))
+                    textView.text = textView.text.replace(Regex("\u200D[\u200C\u200B\u200E]+\u200D"), "")
                 } catch (num: ParseException) {
                     // ignored, most likely just doesn't have a color set
                 }
             }
+
+
 
             patcher.before<ChatInputViewModel>( "sendMessage",
                 Context::class.java,
@@ -65,7 +68,6 @@ class LetThereBeColors : Plugin() {
 
                     if (!color.isNullOrEmpty()) {
                         val content = it.args[2] as MessageContent
-
                         // ignore big emojis
                         if (!ColorUtils.isDiscordEmote(content.textContent) && !ColorUtils.isCommand(content.textContent)) {
                             content.set(content.textContent + ColorUtils.encode(color.replace("#", "")))

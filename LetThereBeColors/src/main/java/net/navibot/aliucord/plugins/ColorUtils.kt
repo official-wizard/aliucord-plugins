@@ -1,6 +1,7 @@
 package net.navibot.aliucord.plugins
 
 import com.discord.widgets.chat.MessageContent
+import com.discord.widgets.chat.list.entries.MessageEntry
 import net.navibot.aliucord.plugins.error.ParseException
 
 
@@ -10,6 +11,10 @@ fun MessageContent.set(text: String) {
     }
 
     field.set(this, text)
+}
+
+fun MessageEntry.set(text: String) {
+    val field = MessageEntry::class.java.getDeclaredField("")
 }
 
 class ColorUtils {
