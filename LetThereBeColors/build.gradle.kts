@@ -1,2 +1,2 @@
-version = "1.0.5"
+version = "1.0.6"
 description = "Personalized custom text color users with the same plugin can see and customize their own!"

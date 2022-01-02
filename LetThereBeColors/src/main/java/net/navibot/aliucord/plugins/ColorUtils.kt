@@ -1,8 +1,11 @@
 package net.navibot.aliucord.plugins
 
+import com.discord.models.message.Message
+import com.discord.stores.StoreChat
 import com.discord.widgets.chat.MessageContent
 import com.discord.widgets.chat.list.entries.MessageEntry
 import net.navibot.aliucord.plugins.error.ParseException
+import java.lang.reflect.Modifier
 
 
 fun MessageContent.set(text: String) {
@@ -10,11 +13,17 @@ fun MessageContent.set(text: String) {
         isAccessible = true
     }
 
+
     field.set(this, text)
 }
 
-fun MessageEntry.set(text: String) {
-    val field = MessageEntry::class.java.getDeclaredField("")
+fun Message.set(text: String) {
+    val field = MessageEntry::class.java.getDeclaredField("content").apply {
+        isAccessible = true
+        setInt(this, modifiers and Modifier.FINAL.inv())
+    }
+
+    field.set(this, text)
 }
 
 class ColorUtils {

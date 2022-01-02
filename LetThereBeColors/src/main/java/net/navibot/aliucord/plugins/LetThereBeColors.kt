@@ -13,6 +13,7 @@ import com.aliucord.patcher.after
 import com.aliucord.patcher.before
 import com.aliucord.views.TextInput
 import com.aliucord.widgets.BottomSheet
+import com.discord.api.message.attachment.MessageAttachment
 import com.discord.utilities.view.text.SimpleDraweeSpanTextView
 import com.discord.utilities.view.text.TextWatcher
 import com.discord.widgets.chat.MessageContent
@@ -35,26 +36,23 @@ class LetThereBeColors : Plugin() {
     override fun start(context: Context) {
 
         try {
-            patcher.after<WidgetChatListAdapterItemMessage>("processMessageText", SimpleDraweeSpanTextView::class.java, MessageEntry::class.java) {
+            patcher.before<WidgetChatListAdapterItemMessage>("processMessageText", SimpleDraweeSpanTextView::class.java, MessageEntry::class.java) {
                 val textView = (it.args[0] as SimpleDraweeSpanTextView).apply {
                     setTextColor(-2302498)
                 }
 
                 val entry = it.args[1] as MessageEntry
                 if (entry.message.isLoading || ColorUtils.isDiscordEmote(entry.message.content)) {
-                    return@after
+                    return@before
                 }
 
                 try {
                     val decode = ColorUtils.decode(entry.message.content)
                     textView.setTextColor(Color.parseColor("#$decode"))
-                    textView.text = textView.text.replace(Regex("\u200D[\u200C\u200B\u200E]+\u200D"), "")
                 } catch (num: ParseException) {
                     // ignored, most likely just doesn't have a color set
                 }
             }
-
-
 
             patcher.before<ChatInputViewModel>( "sendMessage",
                 Context::class.java,
