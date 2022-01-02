@@ -36,8 +36,21 @@ class CopyPlease : Plugin() {
                             isAccessible = true
                         }.get(param.thisObject) as UserProfileHeaderViewBinding
 
-                        // copy username
+                        // copy username/nickname
                         view.j.setOnClickListener {
+                            val loaded = (param.args.first() as UserProfileHeaderViewModel.ViewState.Loaded)
+                            val full = loaded.hasNickname.let {
+                                loaded.guildMember.nick
+                            } ?: run {
+                                "${loaded.user.username}#${loaded.user.discriminator}"
+                            }
+
+                            Utils.setClipboard("cord-name", full)
+                            Utils.showToast("copied '$full'")
+                        }
+
+                        // copy username
+                        view.k.setOnClickListener {
                             val loaded = (param.args.first() as UserProfileHeaderViewModel.ViewState.Loaded)
                             val full =  "${loaded.user.username}#${loaded.user.discriminator}"
 
