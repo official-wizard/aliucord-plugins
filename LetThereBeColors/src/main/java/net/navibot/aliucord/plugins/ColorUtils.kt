@@ -37,7 +37,7 @@ class ColorUtils {
         }
 
         fun decode(data: String): String {
-            if (!data.matches(Regex(".*\u200D[\u200C\u200B\u200E]+\u200D$"))) {
+            if (!data.matches(Regex("((.|\\n)*)\u200D[\u200C\u200B\u200E]+\u200D$"))) {
                 throw ParseException("No valid encoded HEX found!")
             }
 
