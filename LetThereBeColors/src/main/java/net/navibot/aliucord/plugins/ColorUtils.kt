@@ -12,7 +12,7 @@ fun MessageContent.set(text: String) {
     field.set(this, text)
 }
 
-class Utils {
+class ColorUtils {
     companion object {
         private val map = (('A'..'F').mapIndexed { i, c -> Pair(c, "\u200B".repeat(i + 1)) }.toMap() +
                 ('0'..'9').mapIndexed { i, c -> Pair(c, "\u200E".repeat(i + 1)) }.toMap())
@@ -27,16 +27,16 @@ class Utils {
             return "\u200D$builder\u200D"
         }
 
+        fun isDiscordEmote(data: String) :  Boolean {
+            return data.matches(Regex("(((:[a-zA-Z0-9_]+:)|<(|[a-zA-Z0-9]+):[a-zA-Z0-9_]+:[0-9]+>)(| ))+"))
+        }
+
         fun decode(data: String): String {
             if (!data.matches(Regex(".*\u200D[\u200C\u200B\u200E]+\u200D$"))) {
                 throw ParseException("No valid encoded HEX found!")
             }
 
             val chunk = data.substring(data.indexOf("\u200D") + 1, data.lastIndexOf("\u200D"))
-            if (!chunk.matches(Regex("^[\u200C\u200E\u200B]+$"))) {
-                throw ParseException("No valid encoded HEX found!")
-            }
-
             return try {
                 String(chunk.split("\u200C").filter { e1 -> e1.isNotEmpty() }.map { e1 ->
                     map.entries.first { e2 -> e2.value == e1 }.key
@@ -44,7 +44,10 @@ class Utils {
             } catch (n : NoSuchElementException) {
                 throw ParseException("No valid encoded HEX found!")
             }
+        }
 
+        fun isCommand(textContent: String): Boolean {
+            return textContent.startsWith("/")
         }
     }
 }

@@ -41,12 +41,12 @@ class LetThereBeColors : Plugin() {
                 }
 
                 val entry = it.args[1] as MessageEntry
-                if (entry.message.isLoading || entry.message.content.matches(Regex("(:[a-zA-Z0-9_]+:(| ))+"))) {
+                if (entry.message.isLoading || ColorUtils.isDiscordEmote(entry.message.content)) {
                     return@after
                 }
 
                 try {
-                    val decode = net.navibot.aliucord.plugins.Utils.decode(entry.message.content)
+                    val decode = ColorUtils.decode(entry.message.content)
                     textView.setTextColor(Color.parseColor("#$decode"))
                 } catch (num: ParseException) {
                     // ignored, most likely just doesn't have a color set
@@ -67,12 +67,8 @@ class LetThereBeColors : Plugin() {
                         val content = it.args[2] as MessageContent
 
                         // ignore big emojis
-                        if (!content.textContent.matches(Regex("(((:[a-zA-Z0-9_]+:)|<(|[a-zA-Z0-9]+):[a-zA-Z0-9_]+:[0-9]+>)(| ))+"))) {
-                            content.set(
-                                content.textContent + net.navibot.aliucord.plugins.Utils.encode(
-                                    color.replace("#", "")
-                                )
-                            )
+                        if (!ColorUtils.isDiscordEmote(content.textContent) && !ColorUtils.isCommand(content.textContent)) {
+                            content.set(content.textContent + ColorUtils.encode(color.replace("#", "")))
 
                             it.args[2]
                         }
