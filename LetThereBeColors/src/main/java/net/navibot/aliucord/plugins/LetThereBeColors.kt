@@ -66,9 +66,11 @@ class LetThereBeColors : Plugin() {
 
                     if (!color.isNullOrEmpty()) {
                         val content = it.args[2] as MessageContent
+                        val text = content.textContent
+
                         // ignore big emojis
-                        if (!ColorUtils.isDiscordEmote(content.textContent) && !ColorUtils.isCommand(content.textContent)) {
-                            content.set(content.textContent + ColorUtils.encode(color.replace("#", "")))
+                        if (!ColorUtils.isDiscordEmote(text) && !ColorUtils.isCommand(text)) {
+                            content.set(ColorUtils.strip(content.textContent) + " " + ColorUtils.encode(color.replace("#", "")))
 
                             it.args[2]
                         }

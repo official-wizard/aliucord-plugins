@@ -31,6 +31,10 @@ class ColorUtils {
         private val map = (('A'..'F').mapIndexed { i, c -> Pair(c, "\u200B".repeat(i + 1)) }.toMap() +
                 ('0'..'9').mapIndexed { i, c -> Pair(c, "\u200E".repeat(i + 1)) }.toMap())
 
+        fun strip(text: String): String {
+            return text.replace(Regex("\u200D[\u200C\u200B\u200E]+\u200D\$"), "")
+        }
+
         fun encode(hex: String): String {
             val builder = StringBuilder()
 
@@ -46,7 +50,7 @@ class ColorUtils {
         }
 
         fun decode(data: String): String {
-            if (!data.matches(Regex("((.|\\n)*)\u200D[\u200C\u200B\u200E]+\u200D$"))) {
+            if (!data.matches(Regex("((.|\\n)*)\u200D[\u200C\u200B\u200E]+\u200D((.|\\n)*)"))) {
                 throw ParseException("No valid encoded HEX found!")
             }
 
