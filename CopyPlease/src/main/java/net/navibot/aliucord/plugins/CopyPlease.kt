@@ -40,7 +40,7 @@ class CopyPlease : Plugin() {
                         view.j.setOnClickListener {
                             val loaded = (param.args.first() as UserProfileHeaderViewModel.ViewState.Loaded)
                             val full = loaded.hasNickname.let {
-                                loaded.guildMember.nick
+                                loaded.guildMember?.nick
                             } ?: run {
                                 "${loaded.user.username}#${loaded.user.discriminator}"
                             }
