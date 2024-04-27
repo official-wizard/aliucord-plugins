@@ -1,6 +1,5 @@
 <ul align="center">
     <h2>♥ Aliucord Plugins ♥</h2>
-    <img height="150" src="https://31.media.tumblr.com/tumblr_mdghlnkX3f1qdtfd6o1_400.gif"/>
 
 </ul>
 
